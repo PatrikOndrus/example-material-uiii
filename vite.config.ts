@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import iteriaLowcode from '@iteria-app/vite-plugin-lowcode'
+import iteriaLowcode from './plugin' // '@iteria-app/vite-plugin-lowcode'
 import path from 'path'
 
 export default ({ command, mode }) => {
@@ -11,20 +11,20 @@ export default ({ command, mode }) => {
     VITE_MODE: mode,
     VITE_BRANCH: process.env.BRANCH,
     VITE_REPOSITORY_URL: process.env.REPOSITORY_URL,
-    VITE_SITE_ID: process.env.SITE_ID,
+    VITE_SITE_ID: process.env.SITE_ID
   }
 
   return defineConfig({
     optimizeDeps: {
       exclude: ['@iteria-app/wysiwyg'],
-      include: ['@iteria-app/component-templates'],
+      include: ['@iteria-app/component-templates']
     },
     resolve: {
       alias: {
         os: 'os-browserify',
         path: 'path-browserify',
-        module: path.resolve(__dirname, './src/constants.ts'),
-      },
+        module: path.resolve(__dirname, './src/constants.ts')
+      }
     },
     plugins: [
       react(),
@@ -40,10 +40,16 @@ export default ({ command, mode }) => {
           translations: true,
           themeEditor: true,
           graphQLEndpoint: true,
-          floatingButton: true,
+          floatingButton: true
         },
-        whitelistedEnvs: ['VITE_HASURA_GRAPHQL_ENDPOINT', 'VITE_BRANCH', 'VITE_REPOSITORY_URL', 'VITE_SITE_ID', 'VITE_NETLIFY']
-      }),
-    ],
+        whitelistedEnvs: [
+          'VITE_HASURA_GRAPHQL_ENDPOINT',
+          'VITE_BRANCH',
+          'VITE_REPOSITORY_URL',
+          'VITE_SITE_ID',
+          'VITE_NETLIFY'
+        ]
+      })
+    ]
   })
 }
